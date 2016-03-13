@@ -1,17 +1,20 @@
 {
-    "name": "waterfall_app",
-        "version": "0.1.0",
-        "description": "Waterfall from csv generator",
-        "dependencies": {
-            "bullet-pubsub": "^2.2.0"
-        },
-        "devDependencies": {
-            "browserify": "^13.0.0",
-            "mithrilify": "0.0.6"
-        },
-        "scripts": {
-            "build": "browserify -t mithrilify ./js/app.js > ../static/bundle.js"
-        },
-        "author": "James Leung",
-        "license": "ISC"
+  "name": "waterfall_app",
+  "version": "0.1.0",
+  "description": "Waterfall from csv generator",
+  "dependencies": {
+    "bullet-pubsub": "^2.2.0"
+  },
+  "devDependencies": {
+    "browserify": "^13.0.0",
+    "mithrilify": "0.0.6",
+    "watch": "^0.17.1",
+    "watchify": "^3.7.0"
+  },
+  "scripts": {
+    "watch": "watchify -t mithrilify ./js/app.js -o ../static/bundle.js",
+    "build": "browserify -t mithrilify ./js/app.js > ../static/bundle.js"
+  },
+  "author": "James Leung",
+  "license": "ISC"
 }
