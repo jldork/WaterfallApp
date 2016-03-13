@@ -1,36 +1,83 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /** @jsx m */
 
-var Bullet = require('bullet-pubsub');
+Store = require('./store');
 
+var App = {
+    state: {},
+    _onChange: function () {
+        App.state = Store.getAll();
+    },
+
+    controller: function () {
+        return {
+            onunload: function () {
+                Store.removeChangeListener(App._onChange);
+            }
+        }
+    },
+
+    _onFileUpload: function () {
+        console.log('FILE UPLOADING');
+        m.request({
+            method: "POST",
+            url: "/upload",
+            serialize: function (data) {
+                return data
+            }
+        })
+    },
+
+    view: function (ctrl) {
+        return (
+            {tag: "form", attrs: {onSubmit:this._onFileUpload}, children: [
+                {tag: "input", attrs: {type:"file", name:"fileUpload"}}, 
+                {tag: "button", attrs: {type:"submit"}, children: ["Upload"]}
+            ]}
+        );
+    }
+};
+
+Store.addChangeListener(App._onChange);
+
+m.module(document.getElementById("waterfall"), App);
+
+},{"./store":2}],2:[function(require,module,exports){
+var Bullet = require('bullet-pubsub');
 var Constants = {
     CHANGE_EVENT: 'CHANGE_EVENT',
     ActionTypes: {}
 };
 
+var dataset, equation;
+
 var Store = {
-    getall: function(){
+
+    getall: function () {
+        return {
+            dataset: dataset || {},
+            equation: equation || ""
+        }
+    },
+    addChangeListener: function (callback) {
+        Bullet.on(Constants.CHANGE_EVENT, callback);
+    },
+    removeChangeListener: function (callback) {
+        Bullet.removeListener(Constants.CHANGE_EVENT, callback);
+    },
+    emitChange: function () {
+        Bullet.trigger(Constants.CHANGE_EVENT);
+    },
+
+    dispatchIndex: function (payload) {
+        console.log(payload);
+        switch (payload.type) {
+        }
     }
 };
 
-var App = {
-    state: {
-    },
-    _onChange: function() {
-        App.state = Store.getAll();
-    },
-
-    controller: function() {
-    },
-
-    view: function(ctrl) {
-        return m("div", "Hello"); 
-    }
-};
-
-m.module(document.getElementById("waterfall"), App);
-
-},{"bullet-pubsub":2}],2:[function(require,module,exports){
+module.exports = Store;
+},{"bullet-pubsub":3}],3:[function(require,module,exports){
 (function () {
 
     'use strict';

@@ -1,30 +1,42 @@
 /** @jsx m */
 
-var Bullet = require('bullet-pubsub');
-
-var Constants = {
-    CHANGE_EVENT: 'CHANGE_EVENT',
-    ActionTypes: {}
-};
-
-var Store = {
-    getall: function(){
-    }
-};
+Store = require('./store');
 
 var App = {
-    state: {
-    },
-    _onChange: function() {
+    state: {},
+    _onChange: function () {
         App.state = Store.getAll();
     },
 
-    controller: function() {
+    controller: function () {
+        return {
+            onunload: function () {
+                Store.removeChangeListener(App._onChange);
+            }
+        }
     },
 
-    view: function(ctrl) {
-        return m("div", "Hello"); 
+    _onFileUpload: function () {
+        console.log('FILE UPLOADING');
+        m.request({
+            method: "POST",
+            url: "/upload",
+            serialize: function (data) {
+                return data
+            }
+        })
+    },
+
+    view: function (ctrl) {
+        return (
+            <form onSubmit={this._onFileUpload}>
+                <input type="file" name="fileUpload"/>
+                <button type="submit">Upload</button>
+            </form>
+        );
     }
 };
+
+Store.addChangeListener(App._onChange);
 
 m.module(document.getElementById("waterfall"), App);
