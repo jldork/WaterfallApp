@@ -9,17 +9,27 @@ var App = {
     },
 
     controller: function () {
-        return {
-            onunload: function () {
-                Store.removeChangeListener(App._onChange);
-            }
+        this.onUpload = function (e) {
+            e.preventDefault();
+            var fileObject = e.target[0].files[0];
+
+            return m.request({
+                method: "POST",
+                url: "/dataset",
+                data: fileObject,
+                serialize: function (uploadedFile) {
+                    var formData = new FormData();
+                    formData.append(uploadedFile.name, uploadedFile);
+                    return formData
+                }
+            })
         }
     },
 
     view: function (ctrl) {
         return (
-            <form action="dataset" method="post" enctype="multipart/form-data">
-                <input type="file" name="fileUpload"/>
+            <form id="uploadForm" onsubmit={ctrl.onUpload}>
+                <input type="file" name="fileUpload" formenctype="multipart/form-data"/>
                 <button type="submit" value="upload">Upload</button>
             </form>
         );

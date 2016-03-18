@@ -8,7 +8,8 @@ def root():
 
 @app.route('/dataset', methods=['POST'])
 def dataset():
-    print request.files['fileUpload']
+    print request.__dict__
+    return '{ "fake_json":100}', 200
 
 
 if __name__ == '__main__':

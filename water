@@ -3,7 +3,7 @@
 while [[ $# == 0 ]]
 do
     echo ""
-    echo "  Usage: ./water [command]"
+    echo "  Usage: water [command]"
     echo ""
     echo "      start   Boots the server in development mode"
     echo "      build   Rebuilds mithril into bundle.js"

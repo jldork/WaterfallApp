@@ -10,17 +10,27 @@ var App = {
     },
 
     controller: function () {
-        return {
-            onunload: function () {
-                Store.removeChangeListener(App._onChange);
-            }
+        this.onUpload = function (e) {
+            e.preventDefault();
+            var fileObject = e.target[0].files[0];
+
+            return m.request({
+                method: "POST",
+                url: "/dataset",
+                data: fileObject,
+                serialize: function (uploadedFile) {
+                    var formData = new FormData();
+                    formData.append(uploadedFile.name, uploadedFile);
+                    return formData
+                }
+            })
         }
     },
 
     view: function (ctrl) {
         return (
-            {tag: "form", attrs: {action:"dataset", method:"post", enctype:"multipart/form-data"}, children: [
-                {tag: "input", attrs: {type:"file", name:"fileUpload"}}, 
+            {tag: "form", attrs: {id:"uploadForm", onsubmit:ctrl.onUpload}, children: [
+                {tag: "input", attrs: {type:"file", name:"fileUpload", formenctype:"multipart/form-data"}}, 
                 {tag: "button", attrs: {type:"submit", value:"upload"}, children: ["Upload"]}
             ]}
         );
