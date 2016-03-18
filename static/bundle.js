@@ -17,22 +17,11 @@ var App = {
         }
     },
 
-    _onFileUpload: function () {
-        console.log('FILE UPLOADING');
-        m.request({
-            method: "POST",
-            url: "/upload",
-            serialize: function (data) {
-                return data
-            }
-        })
-    },
-
     view: function (ctrl) {
         return (
-            {tag: "form", attrs: {onSubmit:this._onFileUpload}, children: [
+            {tag: "form", attrs: {action:"dataset", method:"post", enctype:"multipart/form-data"}, children: [
                 {tag: "input", attrs: {type:"file", name:"fileUpload"}}, 
-                {tag: "button", attrs: {type:"submit"}, children: ["Upload"]}
+                {tag: "button", attrs: {type:"submit", value:"upload"}, children: ["Upload"]}
             ]}
         );
     }

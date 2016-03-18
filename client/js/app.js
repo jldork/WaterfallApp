@@ -16,22 +16,11 @@ var App = {
         }
     },
 
-    _onFileUpload: function () {
-        console.log('FILE UPLOADING');
-        m.request({
-            method: "POST",
-            url: "/upload",
-            serialize: function (data) {
-                return data
-            }
-        })
-    },
-
     view: function (ctrl) {
         return (
-            <form onSubmit={this._onFileUpload}>
+            <form action="dataset" method="post" enctype="multipart/form-data">
                 <input type="file" name="fileUpload"/>
-                <button type="submit">Upload</button>
+                <button type="submit" value="upload">Upload</button>
             </form>
         );
     }

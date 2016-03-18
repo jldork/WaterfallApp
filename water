@@ -1,0 +1,40 @@
+#!/bin/bash
+
+while [[ $# == 0 ]]
+do
+    echo ""
+    echo "  Usage: ./water [command]"
+    echo ""
+    echo "      start   Boots the server in development mode"
+    echo "      build   Rebuilds mithril into bundle.js"
+    echo ""
+    break
+done
+
+# Parse argument
+while [[ $# == 1 ]]
+do
+    arg="$1"
+    case $arg in
+        start)
+            pushd client
+            npm run watch &
+            popd
+            python app.py
+            pkill -f node
+            shift
+            ;;
+        build)
+            pushd client
+            npm run build
+            shift
+            ;; 
+        *)
+            echo "" 
+            echo "  Argument '$arg' not recognized"
+            ./water
+            shift
+            ;;
+    esac
+    break
+done

@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 
 app = Flask(__name__, static_url_path='/static')
 
@@ -6,5 +6,10 @@ app = Flask(__name__, static_url_path='/static')
 def root():
     return app.send_static_file('index.html')
 
+@app.route('/dataset', methods=['POST'])
+def dataset():
+    print request.files['fileUpload']
+
+
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)

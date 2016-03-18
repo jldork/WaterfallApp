@@ -1,8 +1,0 @@
-#!/bin/bash
-
-pushd client
-    npm run watch &
-popd
-
-python app.py
-pkill -f node
