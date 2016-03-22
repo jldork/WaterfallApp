@@ -5,9 +5,10 @@ do
     echo ""
     echo "  Usage: water [command]"
     echo ""
-    echo "      start	  Boots the server in development mode"
+    echo "      start       Boots the server in development mode"
     echo "      build       Rebuilds mithril into bundle.js"
     echo "      install     Installs python and node dependencies" 
+    echo "      test        Runs server tests"
     echo ""
     break
 done
@@ -38,6 +39,13 @@ do
 	    # server dependences
 	    pushd server
 	    pip install -r requirements.txt
+	    popd
+	    shift
+	    ;;
+	test)
+	    pushd server
+	    source ./.envrc
+	    nosetests --with-specplugin
 	    popd
 	    shift
 	    ;;
