@@ -12,8 +12,8 @@
     "watchify": "^3.7.0"
   },
   "scripts": {
-    "watch": "watchify -t mithrilify ./js/app.js -o ../static/bundle.js",
-    "build": "browserify -t mithrilify ./js/app.js > ../static/bundle.js"
+    "watch": "watchify -t mithrilify ./js/app.js -o ../server/static/bundle.js",
+    "build": "browserify -t mithrilify ./js/app.js > ../server/static/bundle.js"
   },
   "author": "James Leung",
   "license": "ISC"
