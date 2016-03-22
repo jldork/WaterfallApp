@@ -7,6 +7,7 @@ do
     echo ""
     echo "      start   Boots the server in development mode"
     echo "      build   Rebuilds mithril into bundle.js"
+    echo "      install Installs python and node dependencies" 
     echo ""
     break
 done
@@ -29,7 +30,16 @@ do
             npm run build
             shift
             ;; 
-        *)
+	install)
+	    # client dependencies
+	    pushd client
+	    npm install
+	    popd
+	    # server dependences
+	    pip install -r requirements.txt
+	    shift
+	    ;;
+    	*)
             echo "" 
             echo "  Argument '$arg' not recognized"
             ./water
