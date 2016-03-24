@@ -1,4 +1,5 @@
 from flask import Flask, request
+import pandas as pd
 
 app = Flask(__name__, static_url_path='/static')
 
@@ -8,7 +9,10 @@ def root():
 
 @app.route('/dataset', methods=['POST'])
 def dataset():
-    print request.__dict__
+    post_files = request.files
+    filename = post_files.keys()[0]
+    dataframe = pd.read_csv(post_files[filename])
+
     return '{ "fake_json":100}', 200
 
 
