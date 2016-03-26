@@ -8,7 +8,7 @@ do
     echo "      start       Boots the server in development mode"
     echo "      build       Rebuilds mithril into bundle.js"
     echo "      install     Installs python and node dependencies" 
-    echo "      test        Runs server tests"
+    echo "      test        Runs server and client tests"
     echo ""
     break
 done
@@ -19,34 +19,37 @@ do
     arg="$1"
     case $arg in
         start)
-            pushd client
+            pushd client > /dev/null
             npm run watch &
-            popd
+            popd > /dev/null
             python server/app.py
             pkill -f node
             shift
             ;;
         build)
-            pushd client
+            pushd client > /dev/null
             npm run build
             shift
             ;; 
 	install)
 	    # client dependencies
-	    pushd client
+	    pushd client > /dev/null
 	    npm install
-	    popd
+	    popd > /dev/null
 	    # server dependences
-	    pushd server
+	    pushd server > /dev/null
 	    pip install -r requirements.txt
-	    popd
+	    popd > /dev/null
 	    shift
 	    ;;
 	test)
-	    pushd server
+	    pushd server > /dev/null
 	    source ./.envrc
 	    nosetests --with-specplugin
-	    popd
+	    popd > /dev/null
+        pushd client > /dev/null
+        npm test -s
+        popd > /dev/null
 	    shift
 	    ;;
     	*)

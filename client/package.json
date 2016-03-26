@@ -2,18 +2,27 @@
   "name": "waterfall_app",
   "version": "0.1.0",
   "description": "Waterfall from csv generator",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jldork/WaterfallApp.git"
+  },
   "dependencies": {
-    "bullet-pubsub": "^2.2.0"
+    "mithril": "^0.2.3",
+    "mithril-redux": "^1.0.0-beta.1"
   },
   "devDependencies": {
     "browserify": "^13.0.0",
+    "faucet": "0.0.1",
     "mithrilify": "0.0.6",
+    "redux": "^3.3.1",
+    "tape": "^4.5.1",
     "watch": "^0.17.1",
     "watchify": "^3.7.0"
   },
   "scripts": {
     "watch": "watchify -t mithrilify ./js/app.js -o ../server/static/bundle.js",
-    "build": "browserify -t mithrilify ./js/app.js > ../server/static/bundle.js"
+    "build": "browserify -t mithrilify ./js/app.js > ../server/static/bundle.js",
+    "test": "tape 'js/tests/**/*.js' | faucet "
   },
   "author": "James Leung",
   "license": "ISC"
