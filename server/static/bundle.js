@@ -3,19 +3,54 @@
 
 var Store = require('./store'),
     m = require('mithril'),
-    Provider = require('mithril-redux').Provider;
+    Provider = require('mithril-redux').Provider,
+    DatasetUpload = require('./datasetUpload'),
+    EquationInput = require('./equationInput');
 
 var App = {
-    view: function(ctrl) {
+    view: function (ctrl) {
         return (
-            {tag: "h1", attrs: {}, children: ["Waterfall Chart Generator"]}
+            {tag: "div", attrs: {id:"waterfall"}, children: [
+                {tag: "h1", attrs: {}, children: ["Waterfall Chart Generator"]}, 
+                DatasetUpload, 
+                EquationInput
+            ]}
         );
     }
-}; 
+};
 
 m.mount(document.body, Provider.init(Store, m, App));
 
-},{"./store":2,"mithril":7,"mithril-redux":6}],2:[function(require,module,exports){
+},{"./datasetUpload":2,"./equationInput":3,"./store":4,"mithril":9,"mithril-redux":8}],2:[function(require,module,exports){
+var DatasetUpload = {
+    _onClick: function(){
+    },
+    view: function (ctrl) {
+        return (
+            {tag: "div", attrs: {class:"form"}, children: [
+                {tag: "label", attrs: {for:"dataset"}, children: ["Upload your dataset"]}, 
+                {tag: "input", attrs: {type:"file", name:"dataset"}}, 
+                {tag: "button", attrs: {}, children: ["Upload Data"]}
+            ]}
+        )
+    }
+};
+
+module.exports = DatasetUpload;
+},{}],3:[function(require,module,exports){
+var EquationInput = {
+    view: function (ctrl) {
+        return (
+            {tag: "div", attrs: {class:"form"}, children: [
+                {tag: "label", attrs: {for:"equation"}, children: ["Enter your Equation"]}, 
+                {tag: "input", attrs: {type:"text", name:"equation"}}
+            ]}
+        )
+    }
+};
+
+module.exports = EquationInput;
+},{}],4:[function(require,module,exports){
 var redrawMiddleware = require("mithril-redux"),
     redux = require('redux');
 
@@ -31,7 +66,7 @@ var configureStore = function(initialState){
 
 module.exports = configureStore;
 
-},{"mithril-redux":6,"redux":14}],3:[function(require,module,exports){
+},{"mithril-redux":8,"redux":16}],5:[function(require,module,exports){
 /**
  * Checks if `value` is a host object in IE < 9.
  *
@@ -53,7 +88,7 @@ function isHostObject(value) {
 
 module.exports = isHostObject;
 
-},{}],4:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 /**
  * Checks if `value` is object-like. A value is object-like if it's not `null`
  * and has a `typeof` result of "object".
@@ -83,7 +118,7 @@ function isObjectLike(value) {
 
 module.exports = isObjectLike;
 
-},{}],5:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 var isHostObject = require('./_isHostObject'),
     isObjectLike = require('./isObjectLike');
 
@@ -151,7 +186,7 @@ function isPlainObject(value) {
 
 module.exports = isPlainObject;
 
-},{"./_isHostObject":3,"./isObjectLike":4}],6:[function(require,module,exports){
+},{"./_isHostObject":5,"./isObjectLike":6}],8:[function(require,module,exports){
 'use strict';
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -273,7 +308,7 @@ var redrawMiddleware = exports.redrawMiddleware = function redrawMiddleware(stor
     };
   };
 };
-},{}],7:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 ;(function (global, factory) { // eslint-disable-line
 	"use strict"
 	/* eslint-disable no-undef */
@@ -2416,7 +2451,7 @@ var redrawMiddleware = exports.redrawMiddleware = function redrawMiddleware(stor
 	return m
 })
 
-},{}],8:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -2509,7 +2544,7 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],9:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 'use strict';
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -2567,7 +2602,7 @@ function applyMiddleware() {
     };
   };
 }
-},{"./compose":12}],10:[function(require,module,exports){
+},{"./compose":14}],12:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -2619,7 +2654,7 @@ function bindActionCreators(actionCreators, dispatch) {
   }
   return boundActionCreators;
 }
-},{}],11:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -2749,7 +2784,7 @@ function combineReducers(reducers) {
   };
 }
 }).call(this,require('_process'))
-},{"./createStore":13,"./utils/warning":15,"_process":8,"lodash/isPlainObject":5}],12:[function(require,module,exports){
+},{"./createStore":15,"./utils/warning":17,"_process":10,"lodash/isPlainObject":7}],14:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -2779,7 +2814,7 @@ function compose() {
     }, last.apply(undefined, arguments));
   };
 }
-},{}],13:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -2996,7 +3031,7 @@ function createStore(reducer, initialState, enhancer) {
     replaceReducer: replaceReducer
   };
 }
-},{"lodash/isPlainObject":5}],14:[function(require,module,exports){
+},{"lodash/isPlainObject":7}],16:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -3045,7 +3080,7 @@ exports.bindActionCreators = _bindActionCreators2["default"];
 exports.applyMiddleware = _applyMiddleware2["default"];
 exports.compose = _compose2["default"];
 }).call(this,require('_process'))
-},{"./applyMiddleware":9,"./bindActionCreators":10,"./combineReducers":11,"./compose":12,"./createStore":13,"./utils/warning":15,"_process":8}],15:[function(require,module,exports){
+},{"./applyMiddleware":11,"./bindActionCreators":12,"./combineReducers":13,"./compose":14,"./createStore":15,"./utils/warning":17,"_process":10}],17:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
