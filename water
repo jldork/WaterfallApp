@@ -20,7 +20,6 @@ do
     case $arg in
         start)
             pushd client > /dev/null
-            npm run watch &
             popd > /dev/null
             python server/app.py
             pkill -f node
