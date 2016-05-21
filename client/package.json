@@ -7,20 +7,26 @@
     "url": "https://github.com/jldork/WaterfallApp.git"
   },
   "dependencies": {
-    "react": "^15.0.2",
-    "react-dom": "^15.0.2"
+    "mobx": "^2.1.7",
+    "mobx-react": "^3.1.0",
+    "react": "^15.1.0",
+    "react-dom": "^15.0.2",
+    "react-dropzone": "^3.4.0"
   },
   "devDependencies": {
     "babel-preset-es2015": "^6.9.0",
     "babel-preset-react": "^6.5.0",
     "babelify": "^7.2.0",
     "browserify": "^13.0.0",
-    "faucet": "0.0.1",
-    "tape": "^4.5.1"
+    "enzyme": "^2.3.0",
+    "jasmine": "^2.4.1",
+    "jasmine-enzyme": "^1.0.0",
+    "react-addons-test-utils": "^15.1.0",
+    "react-dom": "^15.1.0"
   },
   "scripts": {
-    "build": "browserify -t [ babelify --presets [ react es2015 ] ] js/app.js -o ../server/static/bundle.js",
-    "test": "tape 'js/tests/**/*.js' | faucet "
+    "build": "browserify -t [ babelify --presets [ react es2015 ] ] js/Waterfall.jsx -o ../server/static/bundle.js",
+    "test": "jasmine 'js/tests/**/*.js'"
   },
   "author": "James Leung",
   "license": "ISC"
