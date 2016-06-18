@@ -1,17 +1,21 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Dropzone from 'react-dropzone';
+import {observer} from 'mobx';
+import UploadStore from './UploadStore';
 
-var Upload = React.createClass({
-    onDrop: function (files) {
-        console.log('Received files: ', files)
-    },
+const uploadStore = new UploadStore();
 
-    render: function () {
+class Upload extends Component {
+    onDrop = (file) => {
+        uploadStore.uploadData(file);
+    };
+
+    render() {
         return (
             <div class="upload">
                 <ul>
                     <h2>Upload a dataset</h2>
-                    <li>Headers included</li>
+                    <li>Column Headers included</li>
                     <li>Currently accepting CSV files</li>
                 </ul>
 
@@ -21,8 +25,8 @@ var Upload = React.createClass({
             </div>
         );
     }
-});
+}
 
-module.exports = Upload;
+export default Upload;
 
 

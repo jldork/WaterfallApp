@@ -1,17 +1,12 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Header from './Header.jsx';
 import Upload from './Upload.jsx';
+import { render } from 'react-dom';
 
-var Waterfall = React.createClass({
-    render: function () {
-        return (
-            <div>
-                <Header/>
-                <Upload/>
-            </div>
-        );
-    }
-});
-
-ReactDOM.render(React.createElement(Waterfall), document.getElementById('root'));
+render(
+    <div>
+        <Header/>
+        <Upload/>
+    </div>
+    , document.getElementById('root')
+);

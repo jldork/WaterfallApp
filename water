@@ -5,7 +5,7 @@ do
     echo ""
     echo "  Usage: water [command]"
     echo ""
-    echo "      start       Boots the server in development mode"
+    echo "      start       Boots the flask server"
     echo "      build       Rebuilds mithril into bundle.js"
     echo "      install     Installs python and node dependencies" 
     echo "      test        Runs server and client tests"
@@ -19,8 +19,7 @@ do
     arg="$1"
     case $arg in
         start)
-            pushd client > /dev/null
-            popd > /dev/null
+            water build
             python server/app.py
             pkill -f node
             shift

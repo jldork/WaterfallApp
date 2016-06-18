@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Dropzone from 'react-dropzone';
 
-var Header = React.createClass({
-    render: function() {
+class Header extends Component {
+    render() {
         return (
             <div class="header">
                 <h1 class="title">Waterfall Chart Generator</h1>
@@ -12,9 +12,9 @@ var Header = React.createClass({
             </div>
         );
     }
-});
+}
 
-module.exports = Header;
+export default Header;
 
 
 
