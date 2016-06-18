@@ -20,6 +20,9 @@ do
     case $arg in
         start)
             water build
+            pushd client > /dev/null
+            npm run watch-client
+            popd > /dev/null
             python server/app.py
             pkill -f node
             shift

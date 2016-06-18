@@ -25,7 +25,8 @@
     "jasmine": "^2.4.1",
     "jasmine-enzyme": "^1.0.0",
     "react-addons-test-utils": "^15.1.0",
-    "react-dom": "^15.1.0"
+    "react-dom": "^15.1.0",
+    "watch": "^0.18.0"
   },
   "babel": {
     "plugins": [
@@ -39,7 +40,8 @@
   },
   "scripts": {
     "build": "browserify -t [ babelify ] js/Waterfall.jsx -o ../server/static/bundle.js",
-    "test": "jasmine 'js/tests/**/*.js'"
+    "test": "jasmine 'js/tests/**/*.js'",
+    "watch-client": "watch 'npm run build' ./js"
   },
   "author": "James Leung",
   "license": "ISC"
