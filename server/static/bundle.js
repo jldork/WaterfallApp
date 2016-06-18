@@ -170,7 +170,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _desc, _value, _class, _descriptor;
+var _desc, _value, _class, _descriptor, _descriptor2;
 
 var _mobx = require('mobx');
 
@@ -226,6 +226,8 @@ var UploadStore = (_class = function () {
         _classCallCheck(this, UploadStore);
 
         _initDefineProp(this, 'sums', _descriptor, this);
+
+        _initDefineProp(this, 'dataset', _descriptor2, this);
     }
 
     _createClass(UploadStore, [{
@@ -233,19 +235,34 @@ var UploadStore = (_class = function () {
         value: function uploadData(csv) {
             var _this = this;
 
+            this.dataset = csv[0];
+
             fetch('/dataset', {
                 method: 'POST',
-                body: csv
-            }).then( // POST REQUEST SUCCESS
-            function (response) {
+                body: this._fileToFormData(this.dataset)
+            }).then(function (response) {
+                console.log(response);
+                console.log(JSON.parse(response));
+
                 _this.sums = response;
-            }).catch( // POST REQUEST FAILED
-            function () {});
+            }).catch(function () {});
+        }
+    }, {
+        key: '_fileToFormData',
+        value: function _fileToFormData(file) {
+            var formData = new FormData();
+            formData.append('file', file);
+            return formData;
         }
     }]);
 
     return UploadStore;
 }(), (_descriptor = _applyDecoratedDescriptor(_class.prototype, 'sums', [_mobx.observable], {
+    enumerable: true,
+    initializer: function initializer() {
+        return {};
+    }
+}), _descriptor2 = _applyDecoratedDescriptor(_class.prototype, 'dataset', [_mobx.observable], {
     enumerable: true,
     initializer: function initializer() {
         return {};

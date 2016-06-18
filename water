@@ -19,10 +19,10 @@ do
     arg="$1"
     case $arg in
         start)
-            water build
             pushd client > /dev/null
-            npm run watch-client
-            popd > /dev/null
+            npm run watch-client &
+            npm run build  
+            popd
             python server/app.py
             pkill -f node
             shift
