@@ -239,20 +239,12 @@ var UploadStore = (_class = function () {
 
             fetch('/dataset', {
                 method: 'POST',
-                body: this._fileToFormData(this.dataset)
-            }).then(function (response) {
-                console.log(response);
-                console.log(JSON.parse(response));
-
-                _this.sums = response;
-            }).catch(function () {});
-        }
-    }, {
-        key: '_fileToFormData',
-        value: function _fileToFormData(file) {
-            var formData = new FormData();
-            formData.append('file', file);
-            return formData;
+                body: fileToFormData(this.dataset)
+            }).then(checkStatus).then(function (response) {
+                response.json().then(function (json) {
+                    _this.sums = json;
+                });
+            });
         }
     }]);
 
@@ -268,6 +260,24 @@ var UploadStore = (_class = function () {
         return {};
     }
 })), _class);
+
+
+function checkStatus(response) {
+    if (response.status >= 200 && response.status < 300) {
+        return response;
+    } else {
+        var error = new Error(response.statusText);
+        error.response = response;
+        throw error;
+    }
+}
+
+function fileToFormData(file) {
+    var formData = new FormData();
+    formData.append('file', file);
+    return formData;
+}
+
 exports.default = UploadStore;
 
 },{"mobx":31,"whatwg-fetch":174}],4:[function(require,module,exports){

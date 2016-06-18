@@ -10,23 +10,32 @@ class UploadStore {
 
         fetch('/dataset', {
             method: 'POST',
-            body: this._fileToFormData(this.dataset)
-        }).then(
-            (response) => {
-                console.log(response);
-                console.log(JSON.parse(response));
-
-                this.sums = response;
-            }
-        ).catch( () => {} );
-
-    };
-
-    _fileToFormData(file) {
-        var formData = new FormData();
-        formData.append('file', file);
-        return formData
+            body: fileToFormData(this.dataset)
+        })
+            .then(checkStatus)
+            .then((response)=> {
+                response.json().then((json)=> {
+                    this.sums = json
+                })
+            })
     };
 }
+
+function checkStatus(response) {
+    if (response.status >= 200 && response.status < 300) {
+        return response
+    } else {
+        var error = new Error(response.statusText);
+        error.response = response;
+        throw error
+    }
+}
+
+function fileToFormData(file) {
+    var formData = new FormData();
+    formData.append('file', file);
+    return formData
+}
+
 
 export default UploadStore;
