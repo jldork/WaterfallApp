@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import Dropzone from 'react-dropzone';
-import {observer} from 'mobx';
+import {observer} from 'mobx-react';
 import UploadStore from './UploadStore';
+import WaterfallSTore from './WaterfallStore';
 
 const uploadStore = new UploadStore();
 
 class Upload extends Component {
     onDrop = (file) => {
         uploadStore.uploadData(file);
+        this.props.wfStore.uploaded = true;
     };
 
     render() {

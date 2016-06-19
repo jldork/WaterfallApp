@@ -10,6 +10,7 @@
     "mobx": "^2.1.7",
     "mobx-react": "^3.1.0",
     "react": "^15.1.0",
+    "react-ace": "^3.4.1",
     "react-dom": "^15.0.2",
     "react-dropzone": "^3.4.0",
     "whatwg-fetch": "^1.0.0"
